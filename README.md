@@ -42,23 +42,22 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
 ## 🗄️ Estrutura de Dados e Perfis
 
-O sistema baseia-se em três perfis de acesso distintos:
+O sistema baseia-se em três perfis de acesso distintos (o perfil ADMIN do fluxograma original não está implementado nesta versão):
 
-1. **PACIENTE:**
-   - Visualiza médicos e horários disponíveis.
-   - Solicita agendamentos.
-   - Gerencia suas próprias consultas (Reagendar/Cancelar).
-2. **MEDICO:**
-   - Painel de Agenda Diária.
-   - Aprova ou Recusa solicitações de agendamento.
-   - Gerencia a Fila de Atendimento em tempo real.
-   - Realiza e finaliza atendimentos com observações médicas.
-3. **RECEPCAO:**
-   - Gerencia todos os agendamentos do dia.
-   - Realiza "Encaixes" (agendamentos diretos).
-   - Confirma presença dos pacientes (Check-in).
-   - Organiza a Fila e define prioridades.
-   - Registra pagamentos e métodos utilizados.
+1.  **PACIENTE:**
+    - Visualiza médicos e horários disponíveis.
+    - Solicita agendamentos (que aguardam aprovação do médico).
+    - Gerencia suas próprias consultas (Reagendar/Cancelar).
+2.  **MEDICO:**
+    - Painel de Agenda Diária.
+    - Aprova ou Recusa solicitações de agendamento.
+    - Gerencia a Fila de Atendimento em tempo real (apenas pacientes com presença confirmada).
+    - Realiza e finaliza atendimentos com observações médicas.
+3.  **RECEPCAO:**
+    - Gerencia todos os agendamentos do dia.
+    - Realiza "Encaixes" (agendamentos diretos que também dependem de aprovação médica).
+    - Confirma presença dos pacientes (Check-in) e registra pagamentos.
+    - Organiza a Fila e define prioridades (Normal, Urgência, Emergência).
 
 ---
 
