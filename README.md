@@ -1,108 +1,101 @@
 # 🏥 Sistema de Gestão Médica - MedApp
 
 📌 **Sobre o Projeto**
-Este é um sistema completo de gestão de clínicas e consultórios médicos, projetado para otimizar o fluxo de atendimento desde o agendamento pelo paciente até a conclusão da consulta pelo médico, passando pela organização da recepção.
+O MedApp é um sistema de gestão de clínicas médicas projetado para otimizar o fluxo de atendimento. O sistema permite que pacientes agendem consultas, recepcionistas gerenciem a fila e médicos realizem atendimentos de forma organizada e eficiente.
 
-O sistema resolve problemas de comunicação e organização, garantindo que o médico tenha controle total sobre sua agenda e a recepção consiga gerenciar a fila de espera de forma eficiente.
+O principal objetivo é eliminar falhas de comunicação e garantir que o médico tenha total controle sobre sua agenda, enquanto a recepção cuida da logística e do fluxo de pacientes.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-O sistema é baseado em uma arquitetura moderna e escalável:
+O sistema utiliza as seguintes tecnologias:
 
-- **Frontend:** React 18 com Vite, utilizando TypeScript para maior segurança de código.
-- **Backend:** Node.js com Express e TypeScript.
-- **Estilização:** Tailwind CSS para um design responsivo e moderno.
-- **Animações:** Framer Motion para transições fluidas e feedback visual.
-- **Ícones:** Lucide React para uma interface intuitiva.
-- **Autenticação:** JSON Web Token (JWT) com criptografia de senhas via BcryptJS.
-- **Banco de Dados:** Estrutura em memora (In-memory DB) simulando persistência para demonstração e agilidade.
-
----
-
-## 🚀 Como Rodar o Projeto
-
-Para rodar o projeto localmente, siga os passos abaixo:
-
-### 1. Pré-requisitos
-- Node.js instalado (versão 18 ou superior).
-- Gerenciador de pacotes (npm ou yarn).
-
-### 2. Instalação e Execução
-Como o projeto utiliza um servidor Express que integra o Vite como middleware, você só precisa de um comando:
-
-```bash
-# Instalar dependências
-npm install
-
-# Iniciar o servidor de desenvolvimento
-npm run dev
-```
-O sistema estará disponível em `http://localhost:3000`.
+- **Frontend:** React 18, Vite, TypeScript.
+- **Backend:** Node.js, Express, TypeScript.
+- **Estilização:** Tailwind CSS (Moderno, Responsivo).
+- **Animações:** Framer Motion (Motion).
+- **Ícones:** Lucide React.
+- **Autenticação:** JSON Web Token (JWT) e BcryptJS para segurança de dados.
+- **Banco de Dados:** Simulação em memória (In-memory) para agilidade no desenvolvimento e demonstração.
 
 ---
 
-## 🗄️ Estrutura de Dados e Negócio
+## 🚀 Como Rodar o Projeto no VS Code
 
-### Perfis de Acesso
-- **PACIENTE:** Realiza agendamentos, visualiza seu histórico e reagenda consultas.
-- **MEDICO:** Gerencia agenda, aprova/recusa solicitações, realiza o atendimento e prescreve observações.
-- **RECEPCAO:** Gerencia a chegada dos pacientes, confirma presença, organiza a fila e processa pagamentos.
+Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
-### Tabelas Principais (Entidades)
-- **Users:** Armazena dados de login, nome e perfil.
-- **Appointments (Consultas):** O coração do sistema.
-  - `status`: Define em que fase a consulta está (`AGUARDANDO_APROVACAO`, `AGENDADO`, `CHECKIN_REALIZADO`, `EM_ATENDIMENTO`, `CONCLUIDO`, `CANCELADO`).
-  - `presenca_confirmada`: Booleano que define se o paciente já passou pela recepção.
-  - `ordem_fila`: Define a posição no painel do médico.
-- **Schedules:** Define a grade de horários de trabalho de cada médico.
+1. **Instalar Dependências:** No terminal do VS Code, execute:
+   ```bash
+   npm install
+   ```
 
----
+2. **Rodar o Sistema:** O servidor integra tanto o Backend quanto o Frontend (Vite Middleware):
+   ```bash
+   npm run dev
+   ```
 
-## 🔐 Autenticação e Segurança
-
-- **Fluxo:** O usuário faz login via `/api/auth/login`, recebe um token JWT que deve ser enviado no header `Authorization` de todas as rotas protegidas.
-- **Middleware:** O backend valida a validade do token e o perfil do usuário antes de permitir o acesso às rotas de negócio.
+3. **Acessar:** O sistema estará disponível na porta padrão:
+   `http://localhost:3000`
 
 ---
 
-## 🔄 Fluxo do Sistema
+## 🗄️ Estrutura de Dados e Perfis
 
-1. **Agendamento:** O paciente escolhe um médico e um horário. A consulta nasce com status `AGUARDANDO_APROVACAO`.
-2. **Aprovação:** O médico visualiza as solicitações pendentes e pode **Aprovar** ou **Recusar**.
-3. **Recepção:** No dia da consulta, o paciente chega e a recepção confirma sua presença (`Confirmar Presença`). A consulta entra na fila do médico.
-4. **Atendimento:** O médico inicia a consulta (`Iniciar Atendimento`). O status muda para `EM_ATENDIMENTO`.
-5. **Conclusão:** O médico finaliza a consulta preenchendo as observações e indicando se há necessidade de retorno.
+O sistema baseia-se em três perfis de acesso distintos:
 
----
-
-## ⚙️ Regras de Negócio Implementadas
-
-- ✅ **Aprovação Obrigatória:** Todo agendamento (inclusive encaixes da recepção) precisa ser aprovado pelo médico.
-- ✅ **Reset de Presença:** Se uma consulta for reagendada, a confirmação de presença é resetada (o paciente deve passar pela recepção novamente).
-- ✅ **Cancelamento Global:** O cancelamento remove a consulta de todos os painéis ativos instantaneamente.
-- ✅ **Validação de Horários:** Não é possível agendar em horários passados ou já ocupados.
-- ✅ **Fila Inteligente:** A recepção pode reordenar a fila e definir prioridades (Normal, Urgência, Emergência).
-
----
-
-## 🎨 Design e Interface
-
-- **Cores:** Paleta profissional com verdes terapêuticos (Primary), brancos limpos e tons de cinza para neutralidade.
-- **Tipografia:** Foco em legibilidade com fontes Sans-serif modernas.
-- **Responsividade:** Layout adaptável para Desktops e Tablets, garantindo que o médico possa usar em seu iPad ou computador.
+1. **PACIENTE:**
+   - Visualiza médicos e horários disponíveis.
+   - Solicita agendamentos.
+   - Gerencia suas próprias consultas (Reagendar/Cancelar).
+2. **MEDICO:**
+   - Painel de Agenda Diária.
+   - Aprova ou Recusa solicitações de agendamento.
+   - Gerencia a Fila de Atendimento em tempo real.
+   - Realiza e finaliza atendimentos com observações médicas.
+3. **RECEPCAO:**
+   - Gerencia todos os agendamentos do dia.
+   - Realiza "Encaixes" (agendamentos diretos).
+   - Confirma presença dos pacientes (Check-in).
+   - Organiza a Fila e define prioridades.
+   - Registra pagamentos e métodos utilizados.
 
 ---
 
-## 👨‍💻 Contribuição
+## 🔐 Autenticação (JWT)
 
-1. Faça um Fork do projeto.
-2. Crie uma Branch para sua feature (`git checkout -b feature/nova-feature`).
-3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`).
-4. Push para a Branch (`git push origin feature/nova-feature`).
-5. Abra um Pull Request.
+O sistema conta com um fluxo de autenticação seguro:
+- **Rota:** `/api/auth/login` (POST)
+- **Segurança:** Senhas são criptografadas com `bcryptjs`.
+- **Sessão:** Ao logar, o usuário recebe um `token` JWT que é armazenado no cliente e enviado em todas as requisições protegidas via Header `Authorization`.
 
 ---
 
-📌 *Projeto desenvolvido como parte de um sistema de gestão de saúde inteligente.*
+## 🔄 Fluxo de Negócio
+
+1. **Agendamento:** O status inicial de qualquer consulta (via paciente ou recepção) é `AGUARDANDO_APROVACAO`.
+2. **Aprovação do Médico:** O médico deve aprovar a consulta para que ela mude para `AGENDADO`. Se recusar, muda para `RECUSADO`.
+3. **Recepção (O Dia da Consulta):** A recepção confirma a presença do paciente. A consulta ganha prioridade e ordem na fila.
+4. **Fila do Médico:** O médico visualiza os pacientes confirmados e clica em **Iniciar Atendimento**.
+5. **Finalização:** Após o atendimento, o médico registra as notas e indica se há necessidade de retorno. A consulta é marcada como `CONCLUIDO`.
+
+---
+
+## ⚙️ Regras de Negócio Críticas
+
+- **Reset de Confirmação:** Se uma consulta for reagendada, o status volta para aprovação e a presença é resetada.
+- **Controle de Cancelamento:** O cancelamento pelo médico remove a consulta da agenda e da recepção instantaneamente.
+- **Prioridade na Fila:** Suporte a tipos de atendimento: Normal, Urgência e Emergência.
+- **Validação de Horários:** Bloqueio automático de agendamentos em horários passados ou já ocupados.
+
+---
+
+## 🎨 Design e Layout
+
+- **Tipografia:** Foco em legibilidade e profissionalismo.
+- **Interface:** Design "Clean" com feedbacks visuais claros (cores para diferentes estados de consulta).
+- **Responsividade:** Totalmente adaptado para desktop e uso em tablets por médicos durante o atendimento.
+
+---
+
+📌 *Projeto desenvolvido para proporcionar uma experiência fluida tanto para a equipe médica quanto para os pacientes.*
