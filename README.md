@@ -42,7 +42,7 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
 ## 🗄️ Estrutura de Dados e Perfis
 
-O sistema baseia-se em três perfis de acesso distintos (o perfil ADMIN do fluxograma original não está implementado nesta versão):
+O sistema baseia-se em três perfis de acesso distintos:
 
 1.  **PACIENTE:**
     - Visualiza médicos e horários disponíveis.
