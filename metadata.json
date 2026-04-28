@@ -1,0 +1,6 @@
+{
+  "name": "MedApp - Gestão de Consultas",
+  "description": "Sistema completo para agendamento de consultas médicas, com controle de agenda para médicos e check-in para pacientes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
